@@ -5,45 +5,63 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.example.weatherapp.R
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import kotlinx.android.synthetic.main.fragment_map.*
+import kotlinx.android.synthetic.main.fragment_weather.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnCameraMoveListener,
-    GoogleMap.OnCameraIdleListener {
+class MapFragment : Fragment(), OnMapReadyCallback {
 
-    private lateinit var mMap: GoogleMap
     private val viewModel: MapViewModel by viewModel()
+    private lateinit var googleMap: GoogleMap
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val view: View? = inflater.inflate(R.layout.fragment_map, container, false)
-        setupMap()
-        getWeather()
-        return view
+        return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
-    private fun getWeather() {
-        viewModel.getWeatherData("metrics", "35", "139")
+    private fun getWeather(latLng: LatLng) {
+        viewModel.getWeatherData("metric", latLng.latitude, latLng.longitude)
+            .observe(activity!!, Observer {
+                city_name_txt?.text = it.name
+                deg_txt?.text = "${it!!.main.temp.toInt()}°"
+                info_txt?.text = it.weather[0].main
+                Glide.with(context!!)
+                    .load("http://openweathermap.org/img/wn/${it.weather[0].icon}.png")
+                    .into(ic_weather_small)
+                humidity_txt?.text = "${it.main.humidity}% влажности"
+            })
     }
 
-    private fun setupMap() {
-        val mapFragment = SupportMapFragment.newInstance()
-        fragmentManager?.beginTransaction()?.add(R.id.map_container, mapFragment)?.commit()
-        mapFragment.getMapAsync(this)
+    override fun onMapReady(map: GoogleMap) {
+        googleMap = map
+        googleMap.setOnMapClickListener {
+            val weatherFragment = WeatherFragment()
+            val fm = activity?.supportFragmentManager
+            if (fm?.findFragmentByTag("weatherF") != null) {
+                fm.beginTransaction().show(fm.findFragmentByTag("weatherF")!!).commit()
+            } else {
+                fm!!.beginTransaction().add(R.id.mainFragment, weatherFragment, "weatherF").commit()
+            }
+            getWeather(it)
+        }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        gmap.onCreate(savedInstanceState)
+        gmap.onResume()
+        gmap.getMapAsync(this)
     }
 
-    override fun onCameraMove() {
-    }
-
-    override fun onCameraIdle() {
-    }
 }

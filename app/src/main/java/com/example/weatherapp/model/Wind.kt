@@ -1,4 +1,9 @@
 package com.example.weatherapp.model
 
-data class Wind(val deg: Int? = 0,
-                val speed: Double? = 0.0)
+import com.google.gson.annotations.SerializedName
+
+data class Wind (
+
+	@SerializedName("speed") val speed : Double,
+	@SerializedName("deg") val deg : Int
+)

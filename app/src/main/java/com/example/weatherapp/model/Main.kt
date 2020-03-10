@@ -1,11 +1,13 @@
 package com.example.weatherapp.model
 
-data class Main(val temp: Double? = 0.0,
-                val tempMin: Double? = 0.0,
-                val grndLevel: Int? = 0,
-                val tempKf: Double? = 0.0,
-                val humidity: Int? = 0,
-                val pressure: Int? = 0,
-                val seaLevel: Int? = 0,
-                val feelsLike: Double? = 0.0,
-                val tempMax: Double? = 0.0)
+import com.google.gson.annotations.SerializedName
+
+data class Main (
+
+	@SerializedName("temp") val temp : Double,
+	@SerializedName("feels_like") val feels_like : Double,
+	@SerializedName("temp_min") val temp_min : Double,
+	@SerializedName("temp_max") val temp_max : Double,
+	@SerializedName("pressure") val pressure : Int,
+	@SerializedName("humidity") val humidity : Int
+)

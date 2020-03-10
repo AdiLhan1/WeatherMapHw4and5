@@ -1,4 +1,9 @@
 package com.example.weatherapp.model
 
-data class Coord(val lon: Double? = 0.0,
-                 val lat: Double? = 0.0)
+import com.google.gson.annotations.SerializedName
+
+data class Coord (
+
+	@SerializedName("lon") val lon : Double,
+	@SerializedName("lat") val lat : Double
+)

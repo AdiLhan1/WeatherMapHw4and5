@@ -1,8 +1,9 @@
 package com.example.weatherapp.repositories
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.weatherapp.model.WeatherMainModel
+import com.example.weatherapp.model.MainWeatherModel
 import com.example.weatherapp.network.ApiService
 import com.example.weatherapp.network.RetrofitClient
 import com.example.weatherapp.network.WEATHER_KEY
@@ -10,21 +11,23 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class WeatherRepository() {
+private const val BASE_URL = "http://api.openweathermap.org/"
+class WeatherRepository {
     private lateinit var api: ApiService
-    fun getWeatherData(units: String, lat: String, lon: String): LiveData<WeatherMainModel> {
-        api = RetrofitClient.instanceRetrofit()!!
-        val data = MutableLiveData<WeatherMainModel>()
+    fun getWeatherData(units: String?, lat: Double?, lon: Double?): LiveData<MainWeatherModel> {
+        api = RetrofitClient.instanceRetrofit(BASE_URL)!!
+        val data = MutableLiveData<MainWeatherModel>()
         api.getWeatherData(units, lat, lon, WEATHER_KEY)
-            .enqueue(object : Callback<WeatherMainModel> {
+            .enqueue(object : Callback<MainWeatherModel> {
                 override fun onResponse(
-                    call: Call<WeatherMainModel>,
-                    response: Response<WeatherMainModel>
+                    call: Call<MainWeatherModel>?,
+                    response: Response<MainWeatherModel>?
                 ) {
-                    data.value = response.body()
+                    Log.e("-------", "$response")
+                    data.value = response?.body()
                 }
 
-                override fun onFailure(call: Call<WeatherMainModel>, t: Throwable) {
+                override fun onFailure(call: Call<MainWeatherModel>?, t: Throwable?) {
                     data.value = null
                 }
             })

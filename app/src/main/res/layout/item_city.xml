@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/item_city_country_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_padding"
+        android:layout_marginEnd="@dimen/normal_padding"
+        android:layout_marginTop="@dimen/normal_padding"
+        android:textColor="@color/title_text_color"
+        android:textSize="@dimen/large_text_size"
+        tools:text="Kyrgyzstan" />
+
+    <TextView
+        android:id="@+id/item_city_city_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_padding"
+        android:layout_marginEnd="@dimen/normal_padding"
+        android:layout_marginTop="@dimen/normal_padding"
+        android:textColor="@color/subtitle_text_color"
+        android:textSize="@dimen/small_text_size"
+        tools:text="Bishkek" />
+</LinearLayout>

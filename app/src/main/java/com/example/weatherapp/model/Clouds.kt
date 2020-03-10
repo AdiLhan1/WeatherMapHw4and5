@@ -1,3 +1,8 @@
 package com.example.weatherapp.model
 
-data class Clouds(val all: Int? = 0)
+import com.google.gson.annotations.SerializedName
+
+data class Clouds (
+
+	@SerializedName("all") val all : Int
+)
