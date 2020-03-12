@@ -3,9 +3,8 @@
     <string name="map">Map</string>
     <string name="search">Search</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="google_maps_key">AIzaSyBn7_7NCnQrQPIRCXCMYsKA9h0BN82dg5g</string>
     <string name="most_popular">Популярное</string>
-    <string name="add_city_btn_txt">Добавить город в избранное</string>
+    <string name="Favorite">Добавить город в избранное</string>
+    <string name="bishkek">Bishkek</string>
 </resources>

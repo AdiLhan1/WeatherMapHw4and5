@@ -43,23 +43,16 @@ class CityFragment : Fragment() {
         searchRecyclerView.adapter = searchRecyclerViewAdapter
     }
 
-
     private fun searchCity() {
         searchEditText.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {}
 
-            override fun beforeTextChanged(
-                s: CharSequence, start: Int,
-                count: Int, after: Int
-            ) {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
 
-            override fun onTextChanged(
-                s: CharSequence, start: Int,
-                before: Int, count: Int
-            ) {
-                if (searchEditText.text.toString().length > 2) {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if (searchEditText.text.toString().length > 1) {
                     viewModel.getCityData(search_edit_text.text.toString().trim())
                         .observe(activity!!, Observer {
                             Log.e("--------", "$it")

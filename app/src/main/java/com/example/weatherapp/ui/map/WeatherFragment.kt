@@ -17,11 +17,11 @@ class WeatherFragment : Fragment() {
             val fm = activity?.supportFragmentManager
             val transaction = fm?.beginTransaction()
             transaction?.hide(this)?.commit()
-            city_name_txt.text = ""
-            deg_txt.text = ""
-            info_txt.text = ""
-            ic_weather_small.setImageDrawable(null)
-            humidity_txt.text = ""
+            city_title_tv.text = ""
+            temp_tv.text = ""
+            weather_tv.text = ""
+            weather_ic.setImageDrawable(null)
+            humidity.text = ""
         }
     }
 
